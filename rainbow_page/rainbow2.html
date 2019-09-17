@@ -1,0 +1,46 @@
+<style>
+    body {
+        margin: 0;
+    }
+    div {
+        height: 100%;
+    }
+</style>
+
+<body>
+    <div class="rainbow"></div>
+    
+    <script>
+        function setRainbow(rainbowDiv, interval, step, colors, gradType) {
+            let count = 0
+            setInterval(() => {
+                rainbowDiv.style.background = gradientAnimationFrame(colors, gradType, step)
+            }, interval)
+
+            // Generate the corresponding string for gradient background property with an externar counter
+            function gradientAnimationFrame(colors, gradType, step) {
+                const colorsNumber = colors.length
+                const colorsPositions = colors.reduce((res, color, index) => res + `, ${color} ${count + index * 100/colorsNumber}%`, '')
+                console.log(count)
+                count += step/100 * 100/colorsNumber
+                if (count >= 100/colorsNumber) {
+                    count = 0
+                    const lastColor = colors.pop()
+                    colors.unshift(lastColor)
+                }
+                console.log(`linear-gradient(${gradType}${colorsPositions})`)
+                return `linear-gradient(${gradType}${colorsPositions})`
+            }
+        }
+        
+        // input parameters
+        // direction for the the animation (e.g: 'to top', 'to right', 'to right top')
+        const gradType = "to right"
+        // speed for the animation
+        const step = 1
+        // array of colors for the rainbow (you can make you own rainbow too, just input your color preference)
+        let colors = ["violet", "indigo", "blue", "green", "yellow", "orange", "red"]
+        setRainbow(document.querySelector('.rainbow'), 2, step, colors, gradType)
+    </script>
+</body>
+
