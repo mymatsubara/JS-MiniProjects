@@ -1,0 +1,49 @@
+<style>
+    body {
+        margin: 0;
+    }
+    div {
+        height: 100%;
+    }
+</style>
+
+<body rainbow="['red','purple','green'];to left; ;1000/60">
+    
+    <script>
+        // elements to apply the rainbow effect
+        const elements = document.querySelectorAll('[rainbow]')
+
+        elements.forEach(element => setRainbow(element))
+
+        function setRainbow(element) {
+            // input parameters:
+
+            const userParam = element.getAttribute('rainbow').split(';')
+            // array of colors for the rainbow (you can make you own rainbow too, just input your color preference)
+            let colors = eval(userParam[0])|| ["violet", "indigo", "blue", "green", "yellow", "orange", "red"]
+            // direction for the the animation (e.g: 'to top', 'to right', 'to right top')
+            let gradType = userParam[1] || "to right"
+            // speed for the animation
+            let step = eval(userParam[2]) || 5
+            // Interval in which the frames are updated in ms
+            let interval = eval(userParam[3]) || 1000/60
+
+            let count = 0
+            setInterval(() => element.style.background = gradientAnimationFrame(), interval)
+
+            // Generate the corresponding string for gradient background property and update the external counter accordingly
+            function gradientAnimationFrame() {
+                const colorsNumber = colors.length
+                const colorsPositions = colors.reduce((res, color, index) => res + `, ${color} ${count + index * 100/colorsNumber}%`, '')
+                count += step/100 * 100/colorsNumber
+                if (count >= 100/colorsNumber) {
+                    count = 0
+                    const lastColor = colors.pop()
+                    colors.unshift(lastColor)
+                }
+                return `linear-gradient(${gradType}${colorsPositions})`
+            }
+        }
+    </script>
+</body>
+
