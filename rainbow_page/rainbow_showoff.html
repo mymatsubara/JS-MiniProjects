@@ -5,56 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rainbow Effect</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:900&display=swap" rel="stylesheet">
 
     <style>
+
         * {
             /* border: solid 2px dodgerblue; */
-            box-sizing: border-box;
         }
-        main { grid-area: main; }
+
+        body {
+            font-family: 'Nunito', monospace;
+        }
+
+        .rainbow-bar {
+            grid-area: rainbow-bar
+        }
+
+        main { 
+            grid-area: main;
+            border: solid 3px #e6261f;
+            margin-right: 30px;
+        }
+
         header { 
             grid-area: header;
-            /* background-color: #21292D; */
-            box-shadow: 0px 0px 20px #21292D;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            grid-area: nav;
+            border: solid 3px #eb7532;
+            margin: 0px 40px;
         }
 
         h1 {
-            font-size: 72px;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            height: 100%;
+            margin: 0px;
+            font-size: 10vh;
+            text-align: center;
         }
 
-        nav { 
-            grid-area: nav;
-            margin: 20px;
-            border-radius: 20px;
+        nav, main { 
+            display:flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px #222;
         }
 
         body {
             display: grid;
             height: 100vh;
             margin: 0;
-            grid-template-columns: 250px 1fr;
-            grid-template-rows: 100px 1fr;
+            grid-template-columns: 30% 1fr;
+            grid-template-rows: 10px 15% 1fr;
             grid-template-areas:
+            'rainbow-bar rainbow-bar'
             'header header'
             'nav main';
         }
+
+        nav > div, nav > h2 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        nav > div {
+            margin: 5px;
+            width: 70%;
+            padding: 1.5vh;
+            border-radius: 30px;
+            font-size: 3.5vh;
+            letter-spacing: 3px;
+            cursor: pointer;
+            color: #000c;
+        }
+
+        nav > div:hover {
+            box-shadow: 1px 1px 10px #000d;
+            border: outset 3px #222;
+        }
+
+        nav > h2 {
+            margin-top: 15px;
+            margin-bottom: 0;
+            font-size: 6vh;
+            text-shadow: 1px 1px 3px #000a;
+        }
+
+        main > div {
+
+        }
+
+        /* colors */
+        .red { color: #e6261f }
+        .orange { color: #eb7532 }
+        .yellow { color: #f7d038 }
+        .light-green { color: #f7d038 }
+        .green { color: #49da9a }
+        .light-blue { color: #34bbe6}
+        .blue { color: #4355db }
+        .purple { color: #d23be7 }
+
+        /* bg color */
+        .red-bg { background: #e6261f }
+        .orange-bg { background: #eb7532 }
+        .yellow-bg { background: #f7d038 }
+        .light-green-bg { background: #f7d038 }
+        .green-bg { background: #49da9a }
+        .light-blue-bg { background: #34bbe6}
+        .blue-bg { background: #4355db }
+        .purple-bg { background: #d23be7 }
+
     </style>
 </head>
 
 <body>
-    <main>
-
-    </main>
-    <header rainbow="['#e6261f', '#eb7532', '#f7d038', '#a3e048', '#49da9a', '#34bbe6', '#4355db', '#4355db'];;1;1000/60">
-        <h1>Rainbow_effect</h1>
+        
+    <main></main>
+    <header >
+        <h1>
+            <span class="red">R</span>
+            <span class="orange">A</span>
+            <span class="yellow">I</span>
+            <span class="light-green">N</span>
+            <span class="green">B</span>
+            <span class="light-blue">O</span>
+            <span class="purple">W</span>
+        </h1>
     </header>
     <nav>
-
+        <h2>
+            <span class="red">O</span>
+            <span class="orange">P</span>
+            <span class="yellow">T</span>
+            <span class="light-green">I</span>
+            <span class="green">O</span>
+            <span class="blue">N</span>
+            <span class="light-blue">S</span>
+        </h2>
+        <div class="red-bg">Style 1</div>
+        
+        
+        
+        <div class="orange-bg" role="button">Style 2</div>
+        <div class="yellow-bg">Style 3</div>
+        <div class="light-green-bg">Style 4</div>
+        <div class="green-bg">Style 5</div>
+        <div class="light-blue-bg">Style 6</div>
+        <div class="purple-bg">Style 7</div>
     </nav>
+
+    <div class="rainbow-bar" rainbow="['#e6261f', '#eb7532', '#f7d038', '#a3e048', '#49da9a', '#34bbe6', '#4355db', '#4355db'];;5;1000/60"></h1></div>
 
 
 
@@ -69,7 +172,7 @@
 
     elements.forEach(element => setRainbow(element))
 
-    function setRainbow(element) {
+    function setRainbow(element) {        
         // input parameters:
 
         const userParam = element.getAttribute('rainbow').split(';')
