@@ -83,20 +83,28 @@
             color: #000c;
         }
 
-        nav > div:hover {
+        nav > div:hover, nav > div.selected {
             box-shadow: 1px 1px 10px #000d;
             border: outset 3px #222;
         }
 
-        nav > h2 {
+        h2 {
             margin-top: 15px;
             margin-bottom: 0;
             font-size: 6vh;
             text-shadow: 1px 1px 3px #000a;
         }
 
-        main > div {
+        .rainbow-box {
+            box-shadow: 1px 1px 10px #000d;
+            border: outset 3px #222;
+            width: 250px;
+            height: 250px;
+        }
 
+        main > h3 {
+            margin: 20px;
+            text-align: center;
         }
 
         /* colors */
@@ -119,12 +127,21 @@
         .blue-bg { background: #4355db }
         .purple-bg { background: #d23be7 }
 
+        .blabla {
+            background: linear-gradient(interpolaçao 0%,black 20%, white 70%, interpolacao);
+        }
+
     </style>
 </head>
 
 <body>
         
-    <main rainbow="['black', '#d23be7', 'green'];45deg;1;1000/60"></main>
+    <main>
+        <h2>Style1</h2>
+        <div class="rainbow-box" rainbow="['#e6261f', '#eb7532', '#f7d038', '#a3e048', '#49da9a', '#34bbe6', '#4355db', '#4355db'];;5;1000/60"></div>
+        <h3>rainbow="['#e6261f', '#eb7532', '#f7d038', '#a3e048', '#49da9a', '#34bbe6', '#4355db', '#4355db']; ; 5; 1000/60"</h3>
+    </main>
+
     <header >
         <h1>
             <span class="red">R</span>
@@ -146,10 +163,7 @@
             <span class="blue">N</span>
             <span class="light-blue">S</span>
         </h2>
-        <div class="red-bg">Style 1</div>
-        
-        
-        
+        <div class="red-bg selected">Style 1</div>
         <div class="orange-bg" role="button">Style 2</div>
         <div class="yellow-bg">Style 3</div>
         <div class="light-green-bg">Style 4</div>
@@ -159,13 +173,6 @@
     </nav>
 
     <div class="rainbow-bar" rainbow="['#e6261f', '#eb7532', '#f7d038', '#a3e048', '#49da9a', '#34bbe6', '#4355db', '#4355db'];;5;1000/60"></h1></div>
-
-
-
-
-
-
-
 
 <script>
     // elements to apply the rainbow effect
@@ -193,8 +200,8 @@
         colors = colors.map(c => c.lenght === 4 ? `#${c[1]}${c[1]}${c[2]}${c[2]}${c[3]}${c[3]}` : c)
 
         let count = 0
-        setInterval(() => element.style.background = gradientAnimationFrame(), interval)
-
+        const id = setInterval(() => element.style.background = gradientAnimationFrame(), interval)
+        
         // Generate the corresponding string for gradient background property and update the external counter accordingly
         function gradientAnimationFrame() {
             const colorsNumber = colors.length
@@ -255,6 +262,36 @@
 
         return color
     }
+
+    const styles = [
+    {
+            name: 'Style 1',
+            rainbow: "['#e6261f', '#eb7532', '#f7d038', '#a3e048', '#49da9a', '#34bbe6', '#4355db', '#4355db'];;5;1000/60"
+    },
+    {
+            name: 'Style 2',
+            rainbow: "['#FFC6D9', '#FFE1C6', '#FFF7AE', '#48284A', '#916C80'];45deg;2;1000/60"
+    },
+    {
+            name: 'Style 3',
+            rainbow: "['#85FFC7', '#297373', '#FF8552', '#E6E6E6', '#39393A'];to top;2;1000/60"
+    },
+    ]
+    const rainbowBox = document.querySelector('.rainbow-box')
+    const styleTitle = document.querySelector('main > h2')
+    const styleAttribute = document.querySelector('main > h3')
+    const buttons = document.querySelectorAll('nav > div')
+    buttons.forEach((button, i) => {
+        button.onclick = () => {
+            document.querySelector('.selected').classList.remove('selected')
+            button.classList.add('selected')
+            styleTitle.innerHTML = styles[i].name
+            rainbowBox.removeAttribute('rainbow')
+            rainbowBox.setAttribute('rainbow', styles[i].rainbow)
+            styleAttribute.innerHTML = styles[i].rainbow
+        }
+    })
+
 
 </script>
 </body>
