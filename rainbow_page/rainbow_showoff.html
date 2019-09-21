@@ -122,8 +122,24 @@
         .blue-bg { background: #4355db }
         .purple-bg { background: #d23be7 }
 
-        .blabla {
-            background: linear-gradient(interpolaçao 0%,black 20%, white 70%, interpolacao);
+        @media (max-width: 800px) {
+            body{
+                grid-template-columns: 100%;
+                grid-template-rows: 10px 15% 1fr 1fr;
+                grid-template-areas:
+                'rainbow-bar'
+                'header'
+                'nav'
+                'main';
+            }
+            nav, main {
+                margin: 0px 20px;
+                margin-bottom: 20px; 
+            }
+            h1 {
+                margin-top: 15px;
+                font-size: 12vw;
+            }
         }
 
     </style>
