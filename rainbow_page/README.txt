@@ -7,8 +7,8 @@ E.g.:
     <div rainbow></div>
     
   - div with custom rainbow:
-    <div rainbow="['green', 'red', 'orange', 'blue']; to right left; 10; 1000/60"></div>
-    format: <div rainbow="[css_colors];[direction];[speed];[refresh_rate]"></div>
+    <div rainbow="['green', 'red', 'orange', 'blue']; linear-gradient; to right left; 10; 1000/60"></div>
+    format: <div rainbow="[css_colors];[gradient-effect];[direction];[speed];[refresh_rate]"></div>
   
   If you want you can change the default attibutes of the rainbow effect direct throught script variables (colors, gradTrype, step, interval)
   
