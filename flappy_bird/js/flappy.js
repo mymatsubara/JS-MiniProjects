@@ -1,28 +1,36 @@
-const newGameTab = document.querySelector('.newgame')
-const finalPoints = document.querySelector('#final-points')
-const retry = document.querySelector('#retry')
-retry.onclick = () => {
-    newGameTab.style.display = 'none'
-    newgame()
-}
+// Change this value in order to slow down or speed up the game
 const speedMultiplier = 1
 
 function newgame() {
-    let birdFlying = false
-    document.onkeydown = () => { birdFlying = true }
-    document.onkeyup = () => { birdFlying = false }
+    // Main elements
     const playArea = document.querySelector('[wm-flappy]')
     const bird = document.querySelector('[bird]')
     const pipeTemplate = document.querySelector('#father-pipe')
-    let pipeId = 0
-    let curPipeId = 0
     const points = document.querySelector('#points')
-    let frame = 0
+    const newGameTab = document.querySelector('.newgame')
+    const finalPoints = document.querySelector('#final-points')
+    const retry = document.querySelector('#retry')
 
+    // Event functions
+    retry.onclick = () => {
+        newGameTab.style.display = 'none'
+        newgame()
+    }
+    document.onkeydown = () => { birdFlying = true }
+    document.onkeyup = () => { birdFlying = false }
+    
+    // starting info
+    let birdFlying = false
+    let pipeId = 0
+    let frame = 0
+    let curPipeId = 0
+    
+    // Set the game
     removeAllPipes()
     setBird()
-    const id = setInterval(() => nextFrame( 4,  3, 3, id, frame), 1/speedMultiplier * 1000/60)
+    const gameId = setInterval(() => nextFrame( 4,  3, 3, gameId, frame), 1/speedMultiplier * 1000/60)
 
+    // Functions section bellow:
     function setBird() {
         bird.style.position = 'absolute'
         bird.style.left = `${playArea.clientWidth/2 - bird.clientWidth/2}px`
@@ -31,7 +39,7 @@ function newgame() {
     
     function generatePipe () {
         const pipe = pipeTemplate.cloneNode(true)
-        pipe.id = `pipe-${pipeId}`
+        pipe.gameId = `pipe-${pipeId}`
         pipeId++
         pipe.classList.add('clone-pipe')
         pipe.style.position = 'absolute'
@@ -85,22 +93,26 @@ function newgame() {
         })
     }
 
-    function nextFrame(downSpeed, upSpeed, leftSpeed, id) {
+    // Move the bird and pipes accordingly, and generate new pipes if necessary
+    function nextFrame(downSpeed, upSpeed, leftSpeed, gameId) {
         if (frame % 100 === 0)
             generatePipe()
         birdMovement(downSpeed,upSpeed)
         movePipes(leftSpeed)
         const curPipe = document.getElementById(`pipe-${curPipeId}`)
-        console.log(curPipeId)
         if (curPipe) {
             const curGap = curPipe.children[2]
             const birdRightBorder = bird.offsetLeft + bird.clientWidth
             if (birdRightBorder > curPipe.offsetLeft && bird.offsetLeft < curPipe.offsetLeft + curGap.clientWidth) {
                 const birdBottomBorder = bird.offsetTop + bird.clientHeight
                 if (bird.offsetTop < curGap.offsetTop || birdBottomBorder > curGap.offsetTop + curGap.clientHeight) {
-                    clearInterval(id)
+                    clearInterval(gameId)
                     newGameTab.style.display = 'flex'
                     finalPoints.innerHTML = `Points:<br>${curPipeId}`
+                    document.onkeydown = () => {
+                        newGameTab.style.display = 'none'
+                        newgame()
+                    }
                 }  
             }   else if (bird.offsetLeft >= curPipe.offsetLeft + curGap.clientWidth) {
                 curPipeId++
@@ -110,4 +122,5 @@ function newgame() {
         frame++
     }
 }
+
 newgame()
