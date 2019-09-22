@@ -1,0 +1,86 @@
+[wm-flappy] {
+    position: relative;
+    border: solid 3px dodgerblue;
+    background: deepskyblue;
+    height: 480px;
+    width: 854px;
+    overflow: hidden;
+}
+
+[bird] {
+    height: 25px;
+    z-index: 1;
+}
+
+[pipe] {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 10000px;
+}
+
+.pipe-body, .pipe-extremity {
+    background: linear-gradient(to right, rgb(29, 122, 29),lime);
+    border: solid 2px #000b;
+}
+
+.pipe-extremity {
+    height: 60px;
+}
+
+[passage] {
+    height: 80px;
+}
+
+.pipe-body {
+    margin: 0px 7px;
+    flex-grow: 1;
+}
+
+#points {
+    color: #fff;
+    font-size: 40px;
+    position: absolute;
+    right: 50px;
+    z-index: 2;
+    font-weight: bold;
+}
+
+.newgame {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    border: solid 5px black;
+    background: #fffd;
+    border-radius: 50px;
+    left: 227px;
+    top: 80px;
+    height: 300px;
+    width: 400px;
+    z-index: 3;
+    justify-content: space-around; 
+    align-items: center;
+}
+
+#retry {
+    font-size: 50px;
+    background: orangered;
+    border: solid black 2px;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 30px;
+    text-align: center;
+    width: 250px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#final-points {
+    text-align: center;
+    color: black;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+
