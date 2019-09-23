@@ -39,7 +39,7 @@ function newgame() {
     
     function generatePipe () {
         const pipe = pipeTemplate.cloneNode(true)
-        pipe.gameId = `pipe-${pipeId}`
+        pipe.id = `pipe-${pipeId}`
         pipeId++
         pipe.classList.add('clone-pipe')
         pipe.style.position = 'absolute'
@@ -109,10 +109,6 @@ function newgame() {
                     clearInterval(gameId)
                     newGameTab.style.display = 'flex'
                     finalPoints.innerHTML = `Points:<br>${curPipeId}`
-                    document.onkeydown = () => {
-                        newGameTab.style.display = 'none'
-                        newgame()
-                    }
                 }  
             }   else if (bird.offsetLeft >= curPipe.offsetLeft + curGap.clientWidth) {
                 curPipeId++
