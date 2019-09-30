@@ -18,6 +18,8 @@ function newgame() {
     }
     document.onkeydown = () => { birdFlying = true }
     document.onkeyup = () => { birdFlying = false }
+    document.onmousedown = () => { birdFlying = true }
+    document.onmouseup = () => { birdFlying = false }
     
     // starting info
     let birdFlying = false
